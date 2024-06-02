@@ -1,4 +1,8 @@
-import { create, get, getById, update, deleteCars } from "../repositories/carRepository";
+import { create, get, getById, update, deleteCars, getready } from "../repositories/carRepository";
+
+export const getAllCarsReady = () =>{
+    return getready();
+}
 
 export const getAllCars = () => {
  return get();

@@ -1,5 +1,9 @@
 import { CarsModel } from "../models/CarsModel";
 
+export const getready = () => {
+    return CarsModel.query().where('availability', true);
+}
+
 //Get All Cars
 export const get = () => {
  return CarsModel.query();

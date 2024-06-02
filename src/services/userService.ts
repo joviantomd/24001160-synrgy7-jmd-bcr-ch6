@@ -1,5 +1,6 @@
 import { create, get, getById,getByEmail, update, deleteUsers } from "../repositories/userRepository";
 
+
 export const getAllUser = () => {
  return get();
 }

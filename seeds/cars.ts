@@ -8,6 +8,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex("cars").insert([
     {
       id:"1",
+      user_id: 888,
       name: "Toyota Supra",
       price: "3500000000",
       category: "small",
@@ -15,11 +16,14 @@ export async function seed(knex: Knex): Promise<void> {
       start_date: "2024/02/16",
       end_date: "2024/09/15",
       availability: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: knex.fn.now(),
+      updatedAt: knex.fn.now(),
+      createdBy:"admin",
+      updatedBy:"admin"
     },
     {
       id:"2",
+      user_id: 999,
       name: "Skyline GTR",
       price: "1000000000",
       category: "small",
@@ -27,11 +31,14 @@ export async function seed(knex: Knex): Promise<void> {
       start_date: "2024/02/16",
       end_date: "2024/02/16",
       availability: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: knex.fn.now(),
+      updatedAt: knex.fn.now(),
+      createdBy:"admin",
+      updatedBy:"admin"
     },
     {
       id:"3",
+      user_id: 999,
       name: "Lamborghini Aventador",
       price: "12500000000",
       category: "small",
@@ -39,8 +46,10 @@ export async function seed(knex: Knex): Promise<void> {
       start_date: "2024/02/16",
       end_date: "2024/02/16",
       availability: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: knex.fn.now(),
+      updatedAt: knex.fn.now(),
+      createdBy:"admin",
+      updatedBy:"admin"
     },
   ]);
 }

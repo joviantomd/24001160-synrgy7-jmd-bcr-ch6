@@ -9,53 +9,49 @@ import {
   updateUsers,
   deleteUser,
 } from "../services/userService";
-
+import { encryptPassword, checkPassword, createToken } from "../../middlewares/authPassword";
 const SALT = 10;
 
-declare global {
-    namespace Express {
-        interface Request {
-            user?: { id: number };
-        }
-    }
-}
 
-function encryptPassword(password: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    bcrypt.hash(password, SALT, (err, encryptedPassword) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(encryptedPassword);
-    });
-  });
-}
 
-function checkPassword(
-  encryptedPassword: string,
-  password: string
-): Promise<boolean> {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(password, encryptedPassword, (err, isPasswordCorrect) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(isPasswordCorrect);
-    });
-  });
-}
+// function encryptPassword(password: string): Promise<string> {
+//   return new Promise((resolve, reject) => {
+//     bcrypt.hash(password, SALT, (err, encryptedPassword) => {
+//       if (err) {
+//         reject(err);
+//         return;
+//       }
+//       resolve(encryptedPassword);
+//     });
+//   });
+// }
 
-function createToken(payload: object): string {
-  return jwt.sign(payload, process.env.JWT_SIGNATURE_KEY || "Rahasia");
-}
+// function checkPassword(
+//   encryptedPassword: string,
+//   password: string
+// ): Promise<boolean> {
+//   return new Promise((resolve, reject) => {
+//     bcrypt.compare(password, encryptedPassword, (err, isPasswordCorrect) => {
+//       if (err) {
+//         reject(err);
+//         return;
+//       }
+//       resolve(isPasswordCorrect);
+//     });
+//   });
+// }
+
+// function createToken(payload: object): string {
+//   return jwt.sign(payload, process.env.JWT_SIGNATURE_KEY || "Rahasia");
+// }
+
+//Register User
 
 export const registerUser = async (req: Request, res: Response) => {
   const email = req.body.email.toLowerCase();
   const encryptedPassword = await encryptPassword(req.body.password);
   const name = req.body.name;
-  const role = req.body.role
+  const role = "user"
   console.log(req.body)
   try {
     const user = await createUser({ email, password: encryptedPassword,name ,role });
@@ -74,6 +70,7 @@ export const registerUser = async (req: Request, res: Response) => {
   }
 };
 
+//Login User
 export const loginUser = async (req: Request, res: Response) => {
   const email = req.body.email.toLowerCase();
   const password = req.body.password;
@@ -111,35 +108,19 @@ export const loginUser = async (req: Request, res: Response) => {
   });
 };
 
-export const whoAmI = async (req: Request, res: Response) => {
-  res.status(200).json(req.user);
-};
+//WhoAmI/Authorization
 
-export const authorized = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const bearerToken = req.headers.authorization;
 
-    if (!bearerToken) {
-      res.status(401).json({ message: "Unauthorized" });
-      return;
-    }
+//AuthorizationbyRole
 
-    const token = bearerToken.split("Bearer ")[1];
-    const tokenPayload = jwt.verify(
-      token,
-      process.env.JWT_SIGNATURE_KEY || "Rahasia"
-    ) as jwt.JwtPayload;
 
-    req.user = await getUserById(tokenPayload.id);
-    next();
-  } catch (err) {
-    console.error(err);
-    res.status(401).json({
-      message: "Unauthorized",
-    });
-  }
-};
+//GetAllData User
+export const getUser = async (req:Request, res:Response) =>{
+  const user = await getAllUser();
+
+
+  res.status(200).json({
+    message:"Data berhasil dipanggil",
+    user: user,
+  })
+}
