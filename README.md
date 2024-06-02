@@ -1,4 +1,4 @@
-# Challenge 5 - FSW 2 - SYNRGY X BINAR
+# Challenge 6 - FSW 2 - SYNRGY X BINAR
 
 
 ## Installation
@@ -20,10 +20,24 @@ npm install
 
 Change Directory
 ```bash
-cd 24001118-synrgy7-jmd-bcr-ch5
+cd 24001160-synrgy7-jmd-bcr-ch6
 ```
 
+## Username and Password Account Seed
+- ### Super Admin
+  Email : superadmin@super.com\
+  Password : superadmin1234
+
+- ### Admin
+  Email : admin@admin.com\
+  Password : admin1234
+
+- ### User
+  Email : user@user.com\
+  Password : user1234
+
 ## API Endpoint
+
 ### API `GET`
 - Get All Data
   - Request : `GET /cars`
@@ -90,4 +104,4 @@ cd 24001118-synrgy7-jmd-bcr-ch5
       
 ## ERD (Entity Relationship Diagram)
 
-![Image](https://res.cloudinary.com/dsozzm34s/image/upload/v1716118004/ch-5-challenge/Entity%20Relationship%20Diagram_Challenge%205.png)
+![Image](https://res.cloudinary.com/dsozzm34s/image/upload/v1717338106/challenge-6/Practice_Challenge_5_2_grni5h.png)
